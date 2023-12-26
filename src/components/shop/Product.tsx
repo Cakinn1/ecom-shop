@@ -4,6 +4,7 @@ import Ratings from "./Ratings";
 import { IoBagOutline } from "react-icons/io5";
 import { FaBookmark } from "react-icons/fa";
 import TotalPrice from "../ui/TotalPrice";
+import AddedToCart from "./AddedToCart";
 export default function Product({
   brand,
   price,
@@ -16,11 +17,16 @@ export default function Product({
   stock,
   thumbnail,
   title,
+  addCart,
+  addBookMark,
+  cart,
+  addedToCart,
 }: singleProduct) {
-  const totalPrice = price - (price * discountPercentage) / 100;
+  const itemIsInCart = cart.find((item) => item.id === id);
+  // const itemIsInBookmarkCart = book
 
   return (
-    <div className="min-h-[400px] hover:scale-110 hover:shadow-2xl bg-white hover:border-0 cursor-pointer duration-300 space-y-4 rounded-lg flex-grow p-4 min-w-[22%] max-w-[24%] mb-4 border">
+    <div className="min-h-[400px]  hover:scale-110 hover:shadow-2xl bg-white hover:border-0 cursor-pointer duration-300 space-y-4 rounded-lg flex-grow p-4 min-w-[22%] max-w-[24%] mb-4 border">
       <figure>
         <img
           src={images[0]}
@@ -38,12 +44,26 @@ export default function Product({
             ${discountPercentage}%
           </p>
         </div>
-          <TotalPrice price={price} discountPercentage={discountPercentage} />
+        <TotalPrice price={price} discountPercentage={discountPercentage} />
         <div className="pt-4 flex justify-between items-center">
-          <div className="bg-blue-500 p-2 px-3 text-white rounded-lg">
-            <IoBagOutline className="text-2xl " />
-          </div>
-          <FaBookmark className="text-2xl text-gray-300" />
+          {itemIsInCart ? (
+            <div
+              onClick={() => addCart(id)}
+              className="bg-green-300 p-2 px-3 text-white rounded-lg"
+            >
+              <IoBagOutline className="text-2xl " />
+            </div>
+          ) : (
+            <div
+              onClick={() => addCart(id)}
+              className="bg-blue-500 p-2 px-3 text-white rounded-lg"
+            >
+              <IoBagOutline className="text-2xl " />
+            </div>
+          )}
+
+          <FaBookmark onClick={() => addBookMark(id)} className="text-2xl text-gray-300" />
+  
         </div>
       </div>
     </div>

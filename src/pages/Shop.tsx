@@ -10,6 +10,8 @@ export default function Shop() {
   const [shopData, setShopData] = useState<ShopProps["products"]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cart, setCart] = useState<ShopProps["products"]>([]);
+  const [bookMarkCart, setBookMarkCart] = useState<ShopProps["products"]>([]);
+  const [addedToCart, setAddedToCart] = useState<string>("");
   useEffect(() => {
     async function fetchCategoryByClick() {
       try {
@@ -27,16 +29,14 @@ export default function Shop() {
 
   function addCart(id: number) {
     const findItem = cart.find((item) => item.id === id);
-    console.log(findItem);
-
     if (!findItem) {
       const newItem = shopData.find((item) => {
         return item.id === id;
       });
-
       if (newItem) {
         newItem.quantity = 1;
         setCart([...cart, newItem]);
+        addCartTextClearTimeout(`Added, ${newItem.title}`);
       }
     } else {
       setCart(
@@ -46,19 +46,50 @@ export default function Shop() {
             : item;
         })
       );
+      addCartTextClearTimeout(`Added Again, ${findItem.title}`);
     }
   }
 
+  function addCartTextClearTimeout(value: string) {
+    setAddedToCart(value);
+    const timer = setTimeout(() => {
+      setAddedToCart("");
+    }, 800);
+    return () => clearInterval(timer);
+  }
+
+  function addBookMark(id: number) {
+    const itemIsAlreadyInCart = bookMarkCart.find((item) => item.id === id);
+    if (itemIsAlreadyInCart) {
+      setBookMarkCart(bookMarkCart.filter((item) => item.id !== id));
+    } else {
+      const newItem = shopData.find((item) => item.id === id);
+      if (newItem) {
+        newItem.bookMarkValue = !newItem.bookMarkValue;
+        setBookMarkCart([...bookMarkCart, newItem]);
+      }
+    }
+  }
+
+  console.log(bookMarkCart);
+
   return (
     <section className="max-w-[1000px] mx-auto">
-      <div>cart</div>
       <div>
         <Category setInputValue={setInputValue} />
       </div>
       <div className="py-20">
         {isLoading && <ShopLoading />}
-        <Products products={shopData} />
+        <Products
+          addBookMark={addBookMark}
+          addedToCart={addedToCart}
+          products={shopData}
+          cart={cart}
+          addCart={addCart}
+        />
       </div>
+
+      <div>d</div>
     </section>
   );
 }
