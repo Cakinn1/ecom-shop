@@ -12,7 +12,7 @@ export interface ShopProps {
     thumbnail: string;
     title: string;
     quantity?: number;
-    bookMarkValue?: boolean
+    bookMarkValue?: boolean;
   }[];
 }
 
@@ -30,8 +30,10 @@ export interface singleProduct {
   title: string;
   quantity?: number;
   addCart: (value: number) => void;
-  cart: ShopProps["products"]
-  addedToCart: string
-  addBookMark: (value: number) => void
-  bookMarkValue?: boolean
+  cart: ShopProps["products"];
+  addedToCart: string;
+  addBookMark: (value: number) => void;
+  setBookMarkModel: (value: boolean) => void;
+  bookMarkValue?: boolean;
+  bookMarkCart: ShopProps["products"];
 }

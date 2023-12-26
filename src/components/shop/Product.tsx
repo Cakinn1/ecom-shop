@@ -21,6 +21,8 @@ export default function Product({
   addBookMark,
   cart,
   addedToCart,
+  setBookMarkModel,
+  bookMarkCart,
 }: singleProduct) {
   const itemIsInCart = cart.find((item) => item.id === id);
   // const itemIsInBookmarkCart = book
@@ -62,8 +64,13 @@ export default function Product({
             </div>
           )}
 
-          <FaBookmark onClick={() => addBookMark(id)} className="text-2xl text-gray-300" />
-  
+          <FaBookmark
+            onClick={() => {
+              setBookMarkModel(true);
+              // addBookMark(id);
+            }}
+            className="text-2xl text-gray-300"
+          />
         </div>
       </div>
     </div>

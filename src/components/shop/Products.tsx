@@ -8,7 +8,10 @@ interface ProductsProps {
   addCart: (value: number) => void;
   cart: ShopProps["products"];
   addedToCart: string;
-  addBookMark: (value: number) => void
+  addBookMark: (value: number) => void;
+  setBookMarkModel: (value: boolean) => void;
+  bookMarkCart: ShopProps['products']
+
 }
 
 export default function Products({
@@ -16,13 +19,17 @@ export default function Products({
   addCart,
   cart,
   addedToCart,
-  addBookMark
+  addBookMark,
+  setBookMarkModel,
+  bookMarkCart
 }: ProductsProps) {
   return (
     <section className="flex flex-wrap  gap-x-3 ">
       {products.map((data) => {
         return (
           <Product
+          bookMarkCart={bookMarkCart}
+            setBookMarkModel={setBookMarkModel}
             key={data.id}
             addedToCart={addedToCart}
             cart={cart}
@@ -32,7 +39,7 @@ export default function Products({
           />
         );
       })}
-             {addedToCart && <AddedToCart msg={addedToCart} />}
+      {addedToCart && <AddedToCart msg={addedToCart} />}
     </section>
   );
 }

@@ -4,13 +4,25 @@ import { fetchCategoryByName } from "../apiservices/api";
 import { ShopProps } from "../typings/typings";
 import Products from "../components/shop/Products";
 import ShopLoading from "../components/shop/ShopLoading";
+import { Link } from "react-router-dom";
 
-export default function Shop() {
+export default function Shop({
+  addBookMark,
+  shopData,
+  setShopData,
+  setBookMarkModel,
+  bookMarkCart,
+}: {
+  addBookMark: (value: number) => void;
+  setShopData: (value: ShopProps["products"]) => void;
+  shopData: ShopProps["products"];
+  setBookMarkModel: (value: boolean) => void;
+  bookMarkCart: ShopProps["products"];
+}) {
   const [inputValue, setInputValue] = useState<string>("");
-  const [shopData, setShopData] = useState<ShopProps["products"]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cart, setCart] = useState<ShopProps["products"]>([]);
-  const [bookMarkCart, setBookMarkCart] = useState<ShopProps["products"]>([]);
+
   const [addedToCart, setAddedToCart] = useState<string>("");
   useEffect(() => {
     async function fetchCategoryByClick() {
@@ -58,38 +70,24 @@ export default function Shop() {
     return () => clearInterval(timer);
   }
 
-  function addBookMark(id: number) {
-    const itemIsAlreadyInCart = bookMarkCart.find((item) => item.id === id);
-    if (itemIsAlreadyInCart) {
-      setBookMarkCart(bookMarkCart.filter((item) => item.id !== id));
-    } else {
-      const newItem = shopData.find((item) => item.id === id);
-      if (newItem) {
-        newItem.bookMarkValue = !newItem.bookMarkValue;
-        setBookMarkCart([...bookMarkCart, newItem]);
-      }
-    }
-  }
-
-  console.log(bookMarkCart);
-
   return (
     <section className="max-w-[1000px] mx-auto">
+      <Link to="/bookmark">bookmark temp</Link>
       <div>
         <Category setInputValue={setInputValue} />
       </div>
       <div className="py-20">
         {isLoading && <ShopLoading />}
         <Products
+          setBookMarkModel={setBookMarkModel}
           addBookMark={addBookMark}
           addedToCart={addedToCart}
           products={shopData}
           cart={cart}
           addCart={addCart}
+          bookMarkCart={bookMarkCart}
         />
       </div>
-
-      <div>d</div>
     </section>
   );
 }
