@@ -3,6 +3,7 @@ import { ShopProps, singleProduct } from "../../typings/typings";
 import Ratings from "./Ratings";
 import { IoBagOutline } from "react-icons/io5";
 import { FaBookmark } from "react-icons/fa";
+import TotalPrice from "../ui/TotalPrice";
 export default function Product({
   brand,
   price,
@@ -37,7 +38,7 @@ export default function Product({
             ${discountPercentage}%
           </p>
         </div>
-        <h1 className="font-bold">${totalPrice.toFixed(2)}</h1>
+          <TotalPrice price={price} discountPercentage={discountPercentage} />
         <div className="pt-4 flex justify-between items-center">
           <div className="bg-blue-500 p-2 px-3 text-white rounded-lg">
             <IoBagOutline className="text-2xl " />
