@@ -85,6 +85,7 @@ export default function Shop({
       console.log(error);
     }
   }
+
   return (
     <section className="max-w-[1000px] mx-auto">
       <Link to="/bookmark">bookmark temp</Link>

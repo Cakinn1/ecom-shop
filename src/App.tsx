@@ -9,9 +9,11 @@ import Nav from "./pages/Nav";
 export default function App() {
   //  need to book bookmark system somewhere else,
   const [bookMarkCart, setBookMarkCart] = useState<ShopProps["products"]>([]);
-  const [cartCounter, setCartCounter] = useState<number>(0)
+  const [cartCounter, setCartCounter] = useState<number>(0);
   const [shopData, setShopData] = useState<ShopProps["products"]>([]);
   const [bookMarkModel, setBookMarkModel] = useState<boolean>(false);
+  const [searchByTitle, setSearchByTitle] = useState<string>("iphone");
+
 
   //  need to fix bookmark model
   function addBookMark(id: number) {
@@ -35,15 +37,15 @@ export default function App() {
     <Router>
       {/* delete model for now add back later. */}
       {/* {bookMarkModel && <BookMarkMode />} */}
-      <Nav />
+      <Nav cartCounter={cartCounter} setSearchByTitle={setSearchByTitle} />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route
           path="/shop"
           element={
             <Shop
-             setCartCounter={setCartCounter}
-             cartCounter={cartCounter}
+              setCartCounter={setCartCounter}
+              cartCounter={cartCounter}
               bookMarkCart={bookMarkCart}
               setBookMarkModel={setBookMarkModel}
               addBookMark={addBookMark}
