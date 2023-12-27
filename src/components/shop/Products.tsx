@@ -47,7 +47,7 @@ export default function Products({
         })}
         {addedToCart && <AddedToCart msg={addedToCart} />}
       </section>
-      {products.length > 6 && (
+      {products.length > 6 && products.length < 100 && (
         <div className="flex justify-center items-center">
           <button
             onClick={() => handleButtonSlice()}

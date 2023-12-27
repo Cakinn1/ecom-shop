@@ -5,9 +5,11 @@ import { useState } from "react";
 import { ShopProps } from "./typings/typings";
 import BookMark from "./pages/BookMark";
 import BookMarkMode from "./models/BookMarkMode";
+import Nav from "./pages/Nav";
 export default function App() {
   //  need to book bookmark system somewhere else,
   const [bookMarkCart, setBookMarkCart] = useState<ShopProps["products"]>([]);
+  const [cartCounter, setCartCounter] = useState<number>(0)
   const [shopData, setShopData] = useState<ShopProps["products"]>([]);
   const [bookMarkModel, setBookMarkModel] = useState<boolean>(false);
 
@@ -26,16 +28,22 @@ export default function App() {
     }
   }
 
+  // create input field here to connect
+  //  the nav and products
+
   return (
     <Router>
       {/* delete model for now add back later. */}
       {/* {bookMarkModel && <BookMarkMode />} */}
+      <Nav />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route
           path="/shop"
           element={
             <Shop
+             setCartCounter={setCartCounter}
+             cartCounter={cartCounter}
               bookMarkCart={bookMarkCart}
               setBookMarkModel={setBookMarkModel}
               addBookMark={addBookMark}

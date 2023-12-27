@@ -6,23 +6,26 @@ import Products from "../components/shop/Products";
 import ShopLoading from "../components/shop/ShopLoading";
 import { Link } from "react-router-dom";
 
+
 export default function Shop({
   addBookMark,
   shopData,
   setShopData,
   setBookMarkModel,
   bookMarkCart,
+  cartCounter, setCartCounter
 }: {
   addBookMark: (value: number) => void;
   setShopData: (value: ShopProps["products"]) => void;
   shopData: ShopProps["products"];
   setBookMarkModel: (value: boolean) => void;
   bookMarkCart: ShopProps["products"];
+  cartCounter: number
+  setCartCounter: (value: number) => void
 }) {
   const [inputValue, setInputValue] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cart, setCart] = useState<ShopProps["products"]>([]);
-
   const [addedToCart, setAddedToCart] = useState<string>("");
   useEffect(() => {
     async function fetchCategoryByClick() {
@@ -60,6 +63,7 @@ export default function Shop({
       );
       addCartTextClearTimeout(`Added Again, ${findItem.title}`);
     }
+    setCartCounter(cartCounter + 1)
   }
 
   function addCartTextClearTimeout(value: string) {
@@ -85,7 +89,7 @@ export default function Shop({
     <section className="max-w-[1000px] mx-auto">
       <Link to="/bookmark">bookmark temp</Link>
 
-      <p onClick={() => fetchData()}>click to change card</p>
+      <p onClick={() => fetchData()}>click to change to all data</p>
       <div>
         <Category setInputValue={setInputValue} />
       </div>
