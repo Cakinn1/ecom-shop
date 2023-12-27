@@ -8,8 +8,8 @@ import {
 import { FiMap } from "react-icons/fi";
 export default function TopNav() {
   return (
-    <nav className="bg-[#262626] text-white py-4 px-10 ">
-      <div className="max-w-[1400px] mx-auto flex justify-between items-center">
+    <nav className="bg-[#262626] text-white  ">
+      <div className="max-w-[1400px] py-4 px-10 mx-auto flex justify-between items-center">
         <div className="flex items-center gap-x-2">
           <FiMap />
           <h4 className="text-sm">Free Shipping Over $100</h4>

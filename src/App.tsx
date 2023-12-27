@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Shop from "./pages/Shop";
 import Landing from "./pages/Landing";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShopProps } from "./typings/typings";
 import BookMark from "./pages/BookMark";
 import BookMarkMode from "./models/BookMarkMode";
 import Nav from "./pages/Nav";
+import { fetchAllData, fetchCategoryByName } from "./apiservices/api";
 export default function App() {
   //  need to book bookmark system somewhere else,
   const [bookMarkCart, setBookMarkCart] = useState<ShopProps["products"]>([]);
@@ -13,7 +14,8 @@ export default function App() {
   const [shopData, setShopData] = useState<ShopProps["products"]>([]);
   const [bookMarkModel, setBookMarkModel] = useState<boolean>(false);
   const [searchByTitle, setSearchByTitle] = useState<string>("iphone");
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>("");
 
   //  need to fix bookmark model
   function addBookMark(id: number) {
@@ -30,6 +32,33 @@ export default function App() {
     }
   }
 
+  async function fetchData() {
+    try {
+      setIsLoading(true);
+      const data = await fetchAllData();
+      setShopData(data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    async function fetchCategoryByClick() {
+      try {
+        setIsLoading(true);
+        const categoryData = await fetchCategoryByName(inputValue || "laptops");
+        setShopData(categoryData.products);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+      }
+    }
+    fetchCategoryByClick();
+  }, [inputValue]);
+
   // create input field here to connect
   //  the nav and products
 
@@ -37,13 +66,22 @@ export default function App() {
     <Router>
       {/* delete model for now add back later. */}
       {/* {bookMarkModel && <BookMarkMode />} */}
-      <Nav cartCounter={cartCounter} setSearchByTitle={setSearchByTitle} />
+      <Nav
+        setInputValue={setInputValue}
+        fetchData={fetchData}
+        cartCounter={cartCounter}
+        setSearchByTitle={setSearchByTitle}
+      />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route
           path="/shop"
           element={
             <Shop
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              setIsLoading={setIsLoading}
+              isLoading={isLoading}
               setCartCounter={setCartCounter}
               cartCounter={cartCounter}
               bookMarkCart={bookMarkCart}

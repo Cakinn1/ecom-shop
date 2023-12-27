@@ -6,41 +6,34 @@ import Products from "../components/shop/Products";
 import ShopLoading from "../components/shop/ShopLoading";
 import { Link } from "react-router-dom";
 
-
 export default function Shop({
   addBookMark,
   shopData,
   setShopData,
   setBookMarkModel,
   bookMarkCart,
-  cartCounter, setCartCounter
+  cartCounter,
+  setCartCounter,
+  isLoading,
+  setIsLoading,
+  inputValue,
+  setInputValue,
 }: {
   addBookMark: (value: number) => void;
   setShopData: (value: ShopProps["products"]) => void;
   shopData: ShopProps["products"];
   setBookMarkModel: (value: boolean) => void;
   bookMarkCart: ShopProps["products"];
-  cartCounter: number
-  setCartCounter: (value: number) => void
+  cartCounter: number;
+  setCartCounter: (value: number) => void;
+  setIsLoading: (value: boolean) => void;
+  isLoading: boolean;
+  inputValue: string;
+  setInputValue: (value: string) => void;
 }) {
-  const [inputValue, setInputValue] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cart, setCart] = useState<ShopProps["products"]>([]);
   const [addedToCart, setAddedToCart] = useState<string>("");
-  useEffect(() => {
-    async function fetchCategoryByClick() {
-      try {
-        setIsLoading(true);
-        const categoryData = await fetchCategoryByName(inputValue || "laptops");
-        setShopData(categoryData.products);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        console.log(error);
-      }
-    }
-    fetchCategoryByClick();
-  }, [inputValue]);
+
 
   function addCart(id: number) {
     const findItem = cart.find((item) => item.id === id);
@@ -63,7 +56,7 @@ export default function Shop({
       );
       addCartTextClearTimeout(`Added Again, ${findItem.title}`);
     }
-    setCartCounter(cartCounter + 1)
+    setCartCounter(cartCounter + 1);
   }
 
   function addCartTextClearTimeout(value: string) {
@@ -74,23 +67,11 @@ export default function Shop({
     return () => clearInterval(timer);
   }
 
-  async function fetchData() {
-    try {
-      setIsLoading(true);
-      const data = await fetchAllData();
-      setShopData(data);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.log(error);
-    }
-  }
-
   return (
     <section className="max-w-[1000px] mx-auto">
-      <Link to="/bookmark">bookmark temp</Link>
+      {/* <Link to="/bookmark">bookmark temp</Link> */}
 
-      <p onClick={() => fetchData()}>click to change to all data</p>
+      {/* <p onClick={() => fetchData()}>click to change to all data</p> */}
       <div>
         <Category setInputValue={setInputValue} />
       </div>
