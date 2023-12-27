@@ -68,7 +68,7 @@ export default function App() {
       {/* delete model for now add back later. */}
       {/* {bookMarkModel && <BookMarkMode />} */}
       <Nav
-      setCart={setCart}
+        setCart={setCart}
         cart={cart}
         setInputValue={setInputValue}
         fetchData={fetchData}

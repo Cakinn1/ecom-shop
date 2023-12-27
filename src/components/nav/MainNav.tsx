@@ -7,6 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import { FaChevronUp } from "react-icons/fa6";
+import { IoLockClosedOutline } from "react-icons/io5";
 export default function MainNav({
   cartCounter,
   setSearchByTitle,
@@ -50,9 +51,14 @@ export default function MainNav({
     setCart(cart.filter((item) => item.id !== id));
   }
 
+
+  const totalPrice = cart.reduce((acc, curr) => {
+    return acc + curr.price * curr.quantity!;
+  }, 0);
+
   function RenderCartItems() {
     return (
-      <div className="absolute overflow-x-auto bg-white border shadow-2xl h-[400px]  space-y-4 top-0  p-6 w-[340px] right-0">
+      <div className="absolute overflow-x-auto bg-white border shadow-2xl min-h-[200px] max-h-[400px]  space-y-4 top-0  p-6 w-[340px] right-0">
         <div className="flex items-center justify-between border-b pb-1">
           <h1 className="font-bold text-lg">Your Cart</h1>
           <IoMdClose
@@ -118,6 +124,27 @@ export default function MainNav({
               Sorry there are no items in here
             </div>
           )}
+        </div>
+        <div>
+          <div className="flex justify-between items-center">
+            <h1 className="font-bold uppercase text-lg">subtotal</h1>
+            <p>${totalPrice}</p>
+          </div>
+          <div className="flex gap-x-4 items-center justify-center">
+            <button
+              onClick={() => prompt("Not added yet :-(. -______-")}
+              className="bg-blue-500 cursor-not-allowed flex gap-x-2 items-center font-semibold text-white py-2 px-6 rounded-lg"
+            >
+              View cart
+            </button>
+            <button
+              onClick={() => prompt("Not added yet :-(. -______-")}
+              className="bg-blue-500 flex gap-x-2 items-center cursor-not-allowed hover:brightness-110 duration-300 font-semibold text-white py-2 px-7 rounded-lg"
+            >
+              <IoLockClosedOutline />
+              Checkout
+            </button>
+          </div>
         </div>
       </div>
     );

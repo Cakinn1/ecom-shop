@@ -53,7 +53,7 @@ export default function Products({
             onClick={() => handleButtonSlice()}
             className="px-10 py-2 rounded-2xl hover:brightness-125 duration-300 text-white shadow-2xl bg-blue-500"
           >
-            Click for more
+            Click for moredd
           </button>
         </div>
       )}

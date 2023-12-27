@@ -61,7 +61,6 @@ export default function Shop({
     setCartCounter(cartCounter + 1);
   }
 
-  console.log(cart);
   function addCartTextClearTimeout(value: string) {
     setAddedToCart(value);
     const timer = setTimeout(() => {
