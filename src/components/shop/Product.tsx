@@ -25,7 +25,6 @@ export default function Product({
   bookMarkCart,
 }: singleProduct) {
   const itemIsInCart = cart.find((item) => item.id === id);
-  // const itemIsInBookmarkCart = book
 
   return (
     <div className="min-h-[400px]  hover:scale-110 hover:shadow-2xl bg-white hover:border-0 cursor-pointer duration-300 space-y-4 rounded-lg flex-grow p-4 min-w-[22%] max-w-[24%] mb-4 border">
@@ -60,17 +59,21 @@ export default function Product({
               onClick={() => addCart(id)}
               className="bg-blue-500 p-2 px-3 text-white rounded-lg"
             >
-              <IoBagOutline className="text-2xl " />
+              <IoBagOutline className="text-2xl  " />
             </div>
           )}
 
-          <FaBookmark
-            onClick={() => {
-              setBookMarkModel(true);
-              // addBookMark(id);
-            }}
-            className="text-2xl text-gray-300"
-          />
+          {bookMarkCart.find((item) => item.id === id) ? (
+            <FaBookmark
+              onClick={() => addBookMark(id)}
+              className="text-2xl text-black"
+            />
+          ) : (
+            <FaBookmark
+              onClick={() => addBookMark(id)}
+              className="text-2xl text-gray-300"
+            />
+          )}
         </div>
       </div>
     </div>

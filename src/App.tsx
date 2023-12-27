@@ -11,13 +11,12 @@ export default function App() {
   const [shopData, setShopData] = useState<ShopProps["products"]>([]);
   const [bookMarkModel, setBookMarkModel] = useState<boolean>(false);
 
-
   //  need to fix bookmark model
   function addBookMark(id: number) {
     const itemIsAlreadyInCart = bookMarkCart.find((item) => item.id === id);
     if (itemIsAlreadyInCart) {
       setBookMarkModel(!bookMarkCart);
-      // setBookMarkCart(bookMarkCart.filter((item) => item.id !== id));
+      setBookMarkCart(bookMarkCart.filter((item) => item.id !== id));
     } else {
       const newItem = shopData.find((item) => item.id === id);
       if (newItem) {
@@ -27,19 +26,17 @@ export default function App() {
     }
   }
 
-  console.log(bookMarkCart);
   return (
     <Router>
-      {bookMarkModel && (
-        <BookMarkMode />
-      )}
+      {/* delete model for now add back later. */}
+      {/* {bookMarkModel && <BookMarkMode />} */}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route
           path="/shop"
           element={
             <Shop
-            bookMarkCart={bookMarkCart}
+              bookMarkCart={bookMarkCart}
               setBookMarkModel={setBookMarkModel}
               addBookMark={addBookMark}
               shopData={shopData}

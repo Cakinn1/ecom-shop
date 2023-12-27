@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Category from "../components/shop/Category";
-import { fetchCategoryByName } from "../apiservices/api";
+import { fetchAllData, fetchCategoryByName } from "../apiservices/api";
 import { ShopProps } from "../typings/typings";
 import Products from "../components/shop/Products";
 import ShopLoading from "../components/shop/ShopLoading";
@@ -70,9 +70,22 @@ export default function Shop({
     return () => clearInterval(timer);
   }
 
+  async function fetchData() {
+    try {
+      setIsLoading(true);
+      const data = await fetchAllData();
+      setShopData(data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
+  }
   return (
     <section className="max-w-[1000px] mx-auto">
       <Link to="/bookmark">bookmark temp</Link>
+
+      <p onClick={() => fetchData()}>click to change card</p>
       <div>
         <Category setInputValue={setInputValue} />
       </div>
