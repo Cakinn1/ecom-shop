@@ -19,7 +19,7 @@ export default function MainNav({
   cart: ShopProps["products"];
   setCart: (vale: ShopProps["products"]) => void;
 }) {
-  const [isCartItemsHidden, setIsCardItemsHidden] = useState<boolean>(true);
+  const [isCartItemsHidden, setIsCardItemsHidden] = useState<boolean>(false);
 
   function handleAddQuantity(id: number) {
     setCart(

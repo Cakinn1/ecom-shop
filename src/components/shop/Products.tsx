@@ -28,6 +28,8 @@ export default function Products({
     setLastIndex(lastIndex + 8);
   }
 
+  console.log(products);
+
   return (
     <>
       <section className="flex flex-wrap  gap-x-3 ">
@@ -47,13 +49,13 @@ export default function Products({
         })}
         {addedToCart && <AddedToCart msg={addedToCart} />}
       </section>
-      {products.length > 6 && products.length < 100 && (
+      {products.length > 6 && products.length <= 99 && (
         <div className="flex justify-center items-center">
           <button
             onClick={() => handleButtonSlice()}
             className="px-10 py-2 rounded-2xl hover:brightness-125 duration-300 text-white shadow-2xl bg-blue-500"
           >
-            Click for moredd
+            Click for more
           </button>
         </div>
       )}
