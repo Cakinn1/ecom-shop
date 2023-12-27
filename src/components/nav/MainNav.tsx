@@ -31,13 +31,19 @@ export default function MainNav({
   }
 
   function handleLowerQuantity(id: number) {
-    setCart(
-      cart.map((item) => {
-        return item.id === id
-          ? { ...item, quantity: item.quantity! - 1 }
-          : item;
-      })
-    );
+    const itemQuantity = cart.find((item) => item.id === id);
+
+    if (itemQuantity?.quantity! <= 1) {
+      setCart(cart.filter((item) => item.id !== id));
+    } else {
+      setCart(
+        cart.map((item) => {
+          return item.id === id
+            ? { ...item, quantity: item.quantity! - 1 }
+            : item;
+        })
+      );
+    }
   }
 
   function deleteFromCart(id: number) {
@@ -109,7 +115,7 @@ export default function MainNav({
 
           {cart.length < 1 && (
             <div className="flex justify-center items-center">
-              Sorry there are no items in here 
+              Sorry there are no items in here
             </div>
           )}
         </div>
