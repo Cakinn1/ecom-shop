@@ -10,7 +10,7 @@ export default function Sorting({
   setInputValue: (value: string) => void;
 }) {
   function RenderStoringOptions({ value }: { value: string }) {
-    const [isHovered, setIsHovered] = useState<boolean>(true);
+    const [isHovered, setIsHovered] = useState<boolean>(false);
 
     return (
       <div className="relative group" onMouseLeave={() => setIsHovered(false)}>
@@ -30,7 +30,7 @@ export default function Sorting({
             isHovered
               ? "group-hover:opacity-100"
               : "opacity-0 pointer-events-none"
-          } bg-white border flex gap-x-12 -bottom-[240px] p-6 rounded-lg shadow-2xl  w-[800px] duration-300 absolute`}
+          } bg-white border flex gap-x-12 -bottom-[240px] p-6 rounded-lg shadow-2xl  w-[400px] duration-300 absolute`}
         >
           <div className="space-y-2">
             <h1 className="font-bold text-lg">Shop</h1>
@@ -86,8 +86,6 @@ export default function Sorting({
               Skincare
             </p>
           </div>
-
-          <div></div>
         </div>
 
         {/* Featured

@@ -16,6 +16,7 @@ export default function App() {
   const [searchByTitle, setSearchByTitle] = useState<string>("iphone");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
+  const [cart, setCart] = useState<ShopProps["products"]>([]);
 
   //  need to fix bookmark model
   function addBookMark(id: number) {
@@ -67,6 +68,8 @@ export default function App() {
       {/* delete model for now add back later. */}
       {/* {bookMarkModel && <BookMarkMode />} */}
       <Nav
+      setCart={setCart}
+        cart={cart}
         setInputValue={setInputValue}
         fetchData={fetchData}
         cartCounter={cartCounter}
@@ -78,6 +81,8 @@ export default function App() {
           path="/shop"
           element={
             <Shop
+              cart={cart}
+              setCart={setCart}
               inputValue={inputValue}
               setInputValue={setInputValue}
               setIsLoading={setIsLoading}

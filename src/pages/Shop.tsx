@@ -18,6 +18,8 @@ export default function Shop({
   setIsLoading,
   inputValue,
   setInputValue,
+  setCart,
+  cart,
 }: {
   addBookMark: (value: number) => void;
   setShopData: (value: ShopProps["products"]) => void;
@@ -30,10 +32,10 @@ export default function Shop({
   isLoading: boolean;
   inputValue: string;
   setInputValue: (value: string) => void;
+  cart: ShopProps["products"];
+  setCart:(value: ShopProps['products']) => void;
 }) {
-  const [cart, setCart] = useState<ShopProps["products"]>([]);
   const [addedToCart, setAddedToCart] = useState<string>("");
-
 
   function addCart(id: number) {
     const findItem = cart.find((item) => item.id === id);
@@ -59,6 +61,7 @@ export default function Shop({
     setCartCounter(cartCounter + 1);
   }
 
+  console.log(cart);
   function addCartTextClearTimeout(value: string) {
     setAddedToCart(value);
     const timer = setTimeout(() => {
